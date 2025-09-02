@@ -2,9 +2,9 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load model
+# Load model directly
 with open("churn_model.pkl", "rb") as f:
-    model_data = pickle.load(f)
+    model = pickle.load(f)
 
 features = [
     "Global_reactive_power",
