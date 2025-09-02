@@ -6,8 +6,14 @@ import numpy as np
 with open("churn_model.pkl", "rb") as f:
     model_data = pickle.load(f)
 
-model = model_data["model"]
-features = model_data["features"]
+features = [
+    "Global_reactive_power",
+    "Voltage",
+    "Global_intensity",
+    "Sub_metering_1",
+    "Sub_metering_2",
+    "Sub_metering_3"
+]
 
 st.title("Energy Consumption Prediction App")
 st.write("Enter the values below to predict next-day consumption and get a plan recommendation.")
