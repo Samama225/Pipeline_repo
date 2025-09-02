@@ -2,9 +2,12 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load model directly
+# Load model dict
 with open("churn_model.pkl", "rb") as f:
-    model = pickle.load(f)
+    data = pickle.load(f)
+
+regressor = data["regressor"]
+classifier = data["classifier"]
 
 features = [
     "Global_reactive_power",
@@ -18,7 +21,7 @@ features = [
 st.title("Energy Consumption Prediction App")
 st.write("Enter the values below to predict next-day consumption and get a plan recommendation.")
 
-# Create input fields dynamically based on features
+# Input fields
 inputs = []
 for feat in features:
     val = st.number_input(f"Enter {feat}", value=0.0)
@@ -26,16 +29,11 @@ for feat in features:
 
 if st.button("Predict"):
     sample = np.array([inputs])
-    pred = model.predict(sample)[0]
-
+    
+    # Predict consumption
+    pred = regressor.predict(sample)[0]
     st.success(f"Predicted next-day consumption (kWh): {pred:.2f}")
-
-    # Example recommendation logic
-    if pred < 2:
-        plan = "Plan A"
-    elif pred < 4:
-        plan = "Plan B"
-    else:
-        plan = "Plan C"
-
+    
+    # Predict energy plan
+    plan = classifier.predict(sample)[0]
     st.info(f"Recommended Energy Plan: {plan}")
