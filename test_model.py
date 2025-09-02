@@ -27,7 +27,7 @@ def test_model():
     assert pred_reg is not None
     assert pred_clf is not None
 
-    print("✅ Model test passed.")
+    print("Model test passed.")
     print("Predicted next-day consumption (kWh):", pred_reg[0])
     print("Recommended energy plan:", pred_clf[0])
 
